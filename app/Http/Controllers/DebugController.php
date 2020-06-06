@@ -121,11 +121,11 @@ class DebugController extends Controller
         $search  = ['~', '#'];
         $replace = ['\~', '# '];
 
+        $now            = Carbon::now()->format('Y-m-d H:i:s e');
         $installationId = app('fireflyconfig')->get('installation_id', '')->data;
         $phpVersion     = str_replace($search, $replace, PHP_VERSION);
         $phpOs          = str_replace($search, $replace, PHP_OS);
         $interface      = PHP_SAPI;
-        $now            = Carbon::now()->format('Y-m-d H:i:s e');
         $drivers        = implode(', ', DB::availableDrivers());
         $currentDriver  = DB::getDriverName();
         $userAgent      = $request->header('user-agent');
@@ -137,14 +137,23 @@ class DebugController extends Controller
         $logChannel     = config('logging.default');
         $appLogLevel    = config('logging.level');
         $cacheDriver    = config('cache.default');
-        $loginProvider  = config('auth.driver');
+        $loginProvider  = config('auth.providers.users.driver');
+
+        // some new vars.
+        $telemetry       = true === config('firefly.send_telemetry') && true === config('firefly.feature_flags.telemetry');
+        $defaultLanguage = (string) config('firefly.default_language');
+        $defaultLocale   = (string) config('firefly.default_locale');
+        $userLanguage    = app('steam')->getLanguage();
+        $userLocale      = app('steam')->getLocale();
+        $isDocker        = env('IS_DOCKER', false);
 
         // set languages, see what happens:
         $original       = setlocale(LC_ALL, 0);
         $localeAttempts = [];
         $parts          = app('steam')->getLocaleArray(app('steam')->getLocale());
         foreach ($parts as $code) {
-            $code                  = trim($code);
+            $code = trim($code);
+            Log::debug(sprintf('Trying to set %s', $code));
             $localeAttempts[$code] = var_export(setlocale(LC_ALL, $code), true);
         }
         setlocale(LC_ALL, $original);
@@ -194,7 +203,14 @@ class DebugController extends Controller
                 'interface',
                 'logContent',
                 'cacheDriver',
-                'trustedProxies'
+                'trustedProxies',
+                'telemetry',
+                'userLanguage',
+                'userLocale',
+                'defaultLanguage',
+                'defaultLocale',
+                'isDocker'
+
             )
         );
     }
@@ -208,15 +224,14 @@ class DebugController extends Controller
     {
         $set    = RouteFacade::getRoutes();
         $ignore = ['chart.', 'javascript.', 'json.', 'report-data.', 'popup.', 'debugbar.', 'attachments.download', 'attachments.preview',
-                   'bills.rescan', 'budgets.income', 'currencies.def', 'error', 'flush', 'help.show', 'import.file',
+                   'bills.rescan', 'budgets.income', 'currencies.def', 'error', 'flush', 'help.show',
                    'login', 'logout', 'password.reset', 'profile.confirm-email-change', 'profile.undo-email-change',
                    'register', 'report.options', 'routes', 'rule-groups.down', 'rule-groups.up', 'rules.up', 'rules.down',
                    'rules.select', 'search.search', 'test-flash', 'transactions.link.delete', 'transactions.link.switch',
-                   'two-factor.lost', 'reports.options', 'debug', 'import.create-job', 'import.download', 'import.start', 'import.status.json',
+                   'two-factor.lost', 'reports.options', 'debug',
                    'preferences.delete-code', 'rules.test-triggers', 'piggy-banks.remove-money', 'piggy-banks.add-money',
                    'accounts.reconcile.transactions', 'accounts.reconcile.overview',
-                   'transactions.clone', 'two-factor.index', 'api.v1', 'installer.', 'attachments.view', 'import.create',
-                   'import.job.download', 'import.job.start', 'import.job.status.json', 'import.job.store', 'recurring.events',
+                   'transactions.clone', 'two-factor.index', 'api.v1', 'installer.', 'attachments.view', 'recurring.events',
                    'recurring.suggest',
         ];
         $return = '&nbsp;';

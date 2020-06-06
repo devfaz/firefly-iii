@@ -30,7 +30,6 @@ use FireflyIII\Models\Bill;
 use FireflyIII\Models\Budget;
 use FireflyIII\Models\BudgetLimit;
 use FireflyIII\Models\Category;
-use FireflyIII\Models\ImportJob;
 use FireflyIII\Models\LinkType;
 use FireflyIII\Models\PiggyBank;
 use FireflyIII\Models\Preference;
@@ -53,7 +52,6 @@ use FireflyIII\Support\Binder\CLIToken;
 use FireflyIII\Support\Binder\ConfigurationName;
 use FireflyIII\Support\Binder\CurrencyCode;
 use FireflyIII\Support\Binder\Date;
-use FireflyIII\Support\Binder\ImportProvider;
 use FireflyIII\Support\Binder\JournalList;
 use FireflyIII\Support\Binder\TagList;
 use FireflyIII\Support\Binder\TagOrId;
@@ -85,6 +83,7 @@ use FireflyIII\TransactionRules\Triggers\AmountMore;
 use FireflyIII\TransactionRules\Triggers\BudgetIs;
 use FireflyIII\TransactionRules\Triggers\CategoryIs;
 use FireflyIII\TransactionRules\Triggers\CurrencyIs;
+use FireflyIII\TransactionRules\Triggers\ForeignCurrencyIs;
 use FireflyIII\TransactionRules\Triggers\DateIs;
 use FireflyIII\TransactionRules\Triggers\DateBefore;
 use FireflyIII\TransactionRules\Triggers\DateAfter;
@@ -139,11 +138,11 @@ return [
     ],
     'feature_flags' => [
         'export'    => true,
-        'telemetry' => false,
+        'telemetry' => true,
     ],
 
     'encryption'                   => null === env('USE_ENCRYPTION') || true === env('USE_ENCRYPTION'),
-    'version'                      => '5.2.5',
+    'version'                      => '5.2.8',
     'api_version'                  => '1.1.0',
     'db_version'                   => 13,
     'maxUploadSize'                => 15242880,
@@ -179,7 +178,6 @@ return [
         Bill::class,
         Budget::class,
         Category::class,
-        ImportJob::class,
         PiggyBank::class,
         Tag::class,
         Transaction::class,
@@ -247,7 +245,6 @@ return [
         'application/vnd.oasis.opendocument.image',
     ],
     'list_length'                  => 10,
-    'default_import_format'        => 'csv',
     'bill_periods'                 => ['weekly', 'monthly', 'quarterly', 'half-year', 'yearly'],
     'accountRoles'                 => ['defaultAsset', 'sharedAsset', 'savingAsset', 'ccAsset', 'cashWalletAsset'],
     'ccTypes'                      => [
@@ -417,12 +414,10 @@ return [
         'recurrence'       => Recurrence::class,
         'rule'             => Rule::class,
         'ruleGroup'        => RuleGroup::class,
-        'importJob'        => ImportJob::class,
         'transactionGroup' => TransactionGroup::class,
         'user'             => User::class,
 
         // strings
-        'import_provider'  => ImportProvider::class,
         'currency_code'    => CurrencyCode::class,
 
         // dates
@@ -479,6 +474,7 @@ return [
         'budget_is'                => BudgetIs::class,
         'tag_is'                   => TagIs::class,
         'currency_is'              => CurrencyIs::class,
+        'foreign_currency_is'      => ForeignCurrencyIs::class,
         'has_attachments'          => HasAttachment::class,
         'has_no_category'          => HasNoCategory::class,
         'has_any_category'         => HasAnyCategory::class,

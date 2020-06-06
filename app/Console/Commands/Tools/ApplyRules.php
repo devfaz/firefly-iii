@@ -60,7 +60,7 @@ class ApplyRules extends Command
      */
     protected $signature
         = 'firefly-iii:apply-rules
-                            {--user=1 : The user ID that the import should import for.}
+                            {--user=1 : The user ID.}
                             {--token= : The user\'s access token.}
                             {--accounts= : A comma-separated list of asset accounts or liabilities to apply your rules to.}
                             {--rule_groups= : A comma-separated list of rule groups to apply. Take the ID\'s of these rule groups from the Firefly III interface.}
@@ -112,7 +112,7 @@ class ApplyRules extends Command
 
         $result = $this->verifyInput();
         if (false === $result) {
-            // app('telemetry')->feature('executed-command-with-error', $this->signature);
+            app('telemetry')->feature('system.command.errored', $this->signature);
             return 1;
         }
 
@@ -131,7 +131,7 @@ class ApplyRules extends Command
             $this->warn('    --rule_groups=1,2,...');
             $this->warn('    --all_rules');
 
-            // app('telemetry')->feature('executed-command-with-error', $this->signature);
+            app('telemetry')->feature('system.command.errored', $this->signature);
             return 1;
         }
 
@@ -167,7 +167,7 @@ class ApplyRules extends Command
         $this->line('');
         $this->line('Done!');
 
-        // app('telemetry')->feature('executed-command', $this->signature);
+        app('telemetry')->feature('system.command.executed', $this->signature);
         return 0;
     }
 

@@ -2,6 +2,71 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [5.2.8 (API 1.1.0)] - 2020-06-02
+
+### Fixed
+- [Issue 3443](https://github.com/firefly-iii/firefly-iii/issues/3443) Fixed issue with composer installation.
+
+## [5.2.7 (API 1.1.0)] - 2020-06-01
+
+### Added
+- Firefly III **optional + opt-in** telemetry can now be enabled, if you want to. Read more about it [here](https://docs.firefly-iii.org/support/telemetry).
+- [Issue 3133](https://github.com/firefly-iii/firefly-iii/issues/3133) You can remove attachments before you create a transaction.
+- [Issue 3395](https://github.com/firefly-iii/firefly-iii/issues/3395) Emails sent by Firefly III have been translated. See the note at the bottom. Thanks to @sephrat
+- [Issue 3393](https://github.com/firefly-iii/firefly-iii/issues/3393) New SSL options for LDAP and MySQL. Thanks to @bpatath.
+- [Issue 3413](https://github.com/firefly-iii/firefly-iii/issues/3413) Better string pluralization. Thanks to @sephrat
+- [Issue 3297](https://github.com/firefly-iii/firefly-iii/issues/3297) Rule trigger for foreign currency ID
+
+### Changed
+- The default Docker Compose configuration and documentation switched from PostgreSQL to MariaDB. This will NOT affect existing installations unless you
+ change your docker compose file.
+- [Issue 3404](https://github.com/firefly-iii/firefly-iii/issues/3404) The profile page has been translated. See the note at the bottom. Thanks to @sephrat
+- [Issue 3405](https://github.com/firefly-iii/firefly-iii/issues/3405) All error pages have been translated. See the note at the bottom. Thanks to @sephrat
+
+### Fixed
+- [Issue 3309](https://github.com/firefly-iii/firefly-iii/issues/3309) New budgets would create bad budget limits.
+- [Issue 3390](https://github.com/firefly-iii/firefly-iii/issues/3390) Typos and minor text inconsistencies fixed by @sephrat
+- [Issue 3407](https://github.com/firefly-iii/firefly-iii/issues/3407) [issue 3408](https://github.com/firefly-iii/firefly-iii/issues/3408) The total transaction amount displayed is no longer empty for opening balances by @sephrat
+- [Issue 3409](https://github.com/firefly-iii/firefly-iii/issues/3409) [issue 3420](https://github.com/firefly-iii/firefly-iii/issues/3420) Double accounts no longer listed by @sephrat
+- [Issue 3427](https://github.com/firefly-iii/firefly-iii/issues/3427) Add a time-out to version update check. More improvements are coming.
+- [Issue 3419](https://github.com/firefly-iii/firefly-iii/issues/3419) Error fixed which would prevent you from adding money to a piggy bank, by @sephrat
+- [Issue 3425](https://github.com/firefly-iii/firefly-iii/issues/3425) Budget amount had no validation.
+- [Issue 3428](https://github.com/firefly-iii/firefly-iii/issues/3428) Reconciliation "select all"-button would miscalculate.
+- [Issue 3415](https://github.com/firefly-iii/firefly-iii/issues/3415) New error views
+
+A note about new translations: text you see in errors and emails may still be in English. This is not a bug. Translated text is sometimes generated outside of
+ what's called the user's "session". When Firefly III operates outside of your session, it can't access your preferences or your data. It doesn't know what
+  language to pick. You can set the `DEFAULT_LANGUAGE`-environment variable. But user specific preferences may be ignored. 
+
+## [5.2.6 (API 1.1.0)] - 2020-05-22
+
+### Added
+- [Issue 3049](https://github.com/firefly-iii/firefly-iii/issues/3049) New transaction triggers for dates.
+- Warning if recurring transactions no longer run.
+- View fixed for recurring transactions.
+- A new rule action that will DELETE transactions.
+- Four-week reminder to check for updates if you disabled updates.
+
+### Changed
+- [Issue 3011](https://github.com/firefly-iii/firefly-iii/issues/3011) Reconciliation page has "select all"-button and remembers checkboxes even when you refresh the page.
+- [Issue 3348](https://github.com/firefly-iii/firefly-iii/issues/3348) Smarter menu for accounts on the dashboard
+- Demo user can't upload attachments.
+- Demo user can't set locale.
+
+### Fixed
+- [Issue 3339](https://github.com/firefly-iii/firefly-iii/issues/3339) Could not mass-delete reconciliation transactions.
+- [Issue 3344](https://github.com/firefly-iii/firefly-iii/issues/3344) Could not attach files to accounts.
+- [Issue 3335](https://github.com/firefly-iii/firefly-iii/issues/3335) Fix reconciliation currency account, thanks to @maksimkurb
+- [Issue 3350](https://github.com/firefly-iii/firefly-iii/issues/3350) Better charts in account overview
+- [Issue 3355](https://github.com/firefly-iii/firefly-iii/issues/3355) Better sorting for bills in reports.
+- [Issue 3363](https://github.com/firefly-iii/firefly-iii/issues/3363) New strings translated, thanks to @sephrat
+- [Issue 3367](https://github.com/firefly-iii/firefly-iii/issues/3367) Error in views when uploading > 1 attachments
+- [Issue 3368](https://github.com/firefly-iii/firefly-iii/issues/3368) Wrong hover-text
+- [Issue 3374](https://github.com/firefly-iii/firefly-iii/issues/3374) Inconsistent net worth calculation. You may seem to lose money.
+- [Issue 3376](https://github.com/firefly-iii/firefly-iii/issues/3376) Better rule ordering when cloning rules.
+- [Issue 3381](https://github.com/firefly-iii/firefly-iii/issues/3381) Fix for LDAP
+- Better rounding for budget amounts.
+
 ## [5.2.5 (API 1.1.0)] - 2020-05-04
 
 ### Added
