@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WidgetsDropdown/>
+    <DashboardWidgets/>
     <CCard>
       <CCardBody>
         <CRow>
@@ -331,7 +331,7 @@
 
 <script>
 import MainChartExample from './charts/MainChartExample'
-import WidgetsDropdown from './widgets/WidgetsDropdown'
+import DashboardWidgets from './dashboard/DashboardWidgets'
 import usersData from "./users/UsersData";
 import CTableWrapper from "./base/Table";
 
@@ -339,7 +339,7 @@ export default {
   name: 'Dashboard',
   components: {
     MainChartExample,
-    WidgetsDropdown,
+    DashboardWidgets,
     CTableWrapper
   },
   data () {
