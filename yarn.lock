@@ -6088,10 +6088,10 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-uiv@^1.2:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/uiv/-/uiv-1.2.4.tgz#b168e0cf97a7d27f813cbaf4af9f17c0a1230df1"
-  integrity sha512-tSiNxMKY73s18+JRP3Xb/Ynh+ll3UZB+p9l+C/MY5GU7hl7aM/PShqVSVcSqCJGYs7tAexzL5fcF4U96wyH88w==
+uiv@^1.3:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/uiv/-/uiv-1.3.0.tgz#dde58a30b181962b317f1e65cfef775cbd32bf73"
+  integrity sha512-GmNJWxWIWebg5D3rTDBa5Wnf5hCj+i4Xv/5MFVNi5HTd9jFnnodNjARClgNHWOOtAgS6yBhE7vramszeCzjwbw==
   dependencies:
     portal-vue "^2.1.7"
     vue-functional-data-merge "^3.0.0"
